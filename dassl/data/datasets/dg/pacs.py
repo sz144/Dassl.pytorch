@@ -18,7 +18,7 @@ class PACS(DatasetBase):
         - Li et al. Deeper, broader and artier domain generalization.
         ICCV 2017.
     """
-    dataset_dir = 'pacs'
+    dataset_dir = ''
     domains = ['art_painting', 'cartoon', 'photo', 'sketch']
     data_url = 'https://drive.google.com/uc?id=1m4X4fROCCXMO0lRLrr6Zz9Vb3974NWhE'
     # the following images contain errors and should be ignored
@@ -27,8 +27,9 @@ class PACS(DatasetBase):
     def __init__(self, cfg):
         root = osp.abspath(osp.expanduser(cfg.DATASET.ROOT))
         self.dataset_dir = osp.join(root, self.dataset_dir)
-        self.image_dir = osp.join(self.dataset_dir, 'images')
-        self.split_dir = osp.join(self.dataset_dir, 'splits')
+        self.image_dir = osp.join(self.dataset_dir, 'kfold')
+        # self.split_dir = osp.join(self.dataset_dir, 'splits')
+        self.split_dir = self.dataset_dir
 
         if not osp.exists(self.dataset_dir):
             dst = osp.join(root, 'pacs.zip')

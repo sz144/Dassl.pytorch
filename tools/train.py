@@ -59,6 +59,8 @@ def setup_cfg(args):
         cfg.merge_from_file(args.dataset_config_file)
     if args.config_file:
         cfg.merge_from_file(args.config_file)
+    if args.cfg:
+        cfg.merge_from_file(args.cfg)
     cfg.merge_from_list(args.opts)
     cfg.freeze()
     return cfg
@@ -161,5 +163,6 @@ if __name__ == '__main__':
         nargs=argparse.REMAINDER,
         help='modify config options using the command-line'
     )
+    parser.add_argument('--cfg', required=True, help='path to config file', type=str)
     args = parser.parse_args()
     main(args)

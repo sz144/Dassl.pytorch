@@ -1,0 +1,54 @@
+INPUT:
+  # SIZE: (224, 224)
+  TRANSFORMS: ['normalize']
+
+DATASET:
+  # PACS dataset
+#   NAME: 'PACSDA'
+#   ROOT: 'D:/ML_data/PACS/kfold'
+#   SOURCE_DOMAINS: ['cartoon', 'photo', 'sketch']
+#   TARGET_DOMAINS: ['art_painting']
+  ################################################## 
+  # OfficeCaltech dataset
+  NAME: 'OfficeCaltech'
+  ROOT: 'D:/ML_data/office/office_caltech_10'
+  SOURCE_DOMAINS: ['caltech', 'dslr', 'webcam']
+  TARGET_DOMAINS: ['amazon']
+  ##################################################
+   # VLCS dataset
+#   NAME: 'VLCSDA'
+#   ROOT: 'D:/ML_data/VLCS'
+#   SOURCE_DOMAINS: ['CALTECH', 'LABELME', 'SUN']
+#   TARGET_DOMAINS: ['PASCAL']
+
+
+MODEL:
+  BACKBONE:
+    NAME: 'resnet18'
+    PRETRAINED: True
+
+DATALOADER:
+  TRAIN_X:
+    SAMPLER: 'RandomDomainSampler'
+    BATCH_SIZE: 45
+  TRAIN_U:
+    SAME_AS_X: False
+    BATCH_SIZE: 30
+  TEST:
+    BATCH_SIZE: 45
+
+OPTIM:
+  NAME: 'sgd'
+  LR: 0.05
+  # STEPSIZE: [30]
+  MAX_EPOCH: 10
+  LR_SCHEDULER: 'cosine'
+
+SEED: 2020
+
+TRAINER:
+  NAME: 'M3SDA'
+
+#OUTPUT_DIR: './output/m3sda_vlcs'
+#OUTPUT_DIR: './output/m3sda_pacs'
+OUTPUT_DIR: './output/m3sda_office_caltech'
