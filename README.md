@@ -1,8 +1,6 @@
 # Dassl
 
-Dassl is a [PyTorch](https://pytorch.org) toolbox for domain adaptation and semi-supervised learning. It has a modular design and unified interfaces, allowing fast prototyping and experimentation. With Dassl, a new method can be implemented with only a few lines of code.
-
-Besides the efforts to facilitate algorithm development and push state of the art, Dassl is also aimed at providing a uniform benchmarking platform, which allows methods to be evaluated on a common ground using the same set of environment and parameters.
+Dassl is a [PyTorch](https://pytorch.org) toolbox designed for researching Domain Adaptation and Semi-Supervised Learning (and hence the name Dassl). It has a modular design and unified interfaces, allowing fast prototyping and experimentation of new DA/SSL methods. With Dassl, a new method can be implemented with only a few lines of code.
 
 You can use Dassl as a library for the following research:
 
@@ -11,12 +9,13 @@ You can use Dassl as a library for the following research:
 - Semi-supervised learning
 
 ## What's new
+- [Jan 2021] Our recent work, [MixStyle](https://openreview.net/forum?id=6xHJ37MVxxp) (mixing instance-level feature statistics of samples of different domains for improving domain generalization), has been accepted to ICLR'21. The code has been released at https://github.com/KaiyangZhou/mixstyle-release where the cross-domain image classification part is based on Dassl.pytorch.
 - [May 2020] `v0.1.3`: Added the `Digit-Single` dataset for benchmarking single-source DG methods. The corresponding CNN model is [dassl/modeling/backbone/cnn_digitsingle.py](dassl/modeling/backbone/cnn_digitsingle.py) and the dataset config file is [configs/datasets/dg/digit_single.yaml](configs/datasets/dg/digit_single.yaml). See [Volpi et al. NIPS'18](https://arxiv.org/abs/1805.12018) for how to evaluate your method.
 - [May 2020] `v0.1.2`: 1) Added [EfficientNet](https://arxiv.org/abs/1905.11946) models (B0-B7) (credit to https://github.com/lukemelas/EfficientNet-PyTorch). To use EfficientNet, set `MODEL.BACKBONE.NAME` to `efficientnet_b{N}` where `N={0, ..., 7}`. 2) `dassl/modeling/models` has been renamed to `dassl/modeling/network`, including the `build_model()` method changed to `build_network()` and the `MODEL_REGISTRY` to `NETWORK_RESIGTRY`.
 
 ## Overview
 
-Dassl has implemented the following papers:
+Dassl has implemented the following methods:
 
 - Single-source domain adaptation
     - [Semi-supervised Domain Adaptation via Minimax Entropy (ICCV'19)](https://arxiv.org/abs/1904.06487) [[dassl/engine/da/mme.py](dassl/engine/da/mme.py)]
