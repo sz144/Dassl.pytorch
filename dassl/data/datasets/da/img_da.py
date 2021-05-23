@@ -71,31 +71,31 @@ class VLCSDA(DatasetBase):
         # train = self._read_data(cfg.DATASET.SOURCE_DOMAINS, 'train')
         # val = self._read_data(cfg.DATASET.SOURCE_DOMAINS, 'crossval')
         # test = self._read_data(cfg.DATASET.TARGET_DOMAINS, 'test')
-        train_x = self._read_data(cfg.DATASET.SOURCE_DOMAINS)
-        train_u = self._read_data(cfg.DATASET.TARGET_DOMAINS)
-        test = self._read_data(cfg.DATASET.TARGET_DOMAINS)
+        train_x = self._read_data(cfg.DATASET.SOURCE_DOMAINS, split='full')
+        train_u = self._read_data(cfg.DATASET.TARGET_DOMAINS, split='full')
+        test = self._read_data(cfg.DATASET.TARGET_DOMAINS, split='test')
 
         super().__init__(train_x=train_x, train_u=train_u, test=test)
 
-    # def _read_data(self, input_domains, split):
-    def _read_data(self, input_domains):
+    def _read_data(self, input_domains, split):
+    # def _read_data(self, input_domains):
         items = []
-        splits = ['full', 'test']
+        # splits = ['full', 'test']
 
         for domain, dname in enumerate(input_domains):
             domain_dir = osp.join(self.dataset_dir, dname)
-            for split in splits:
-                domain_split_dir = osp.join(domain_dir, split)
-                class_names = listdir_nohidden(domain_split_dir)
-                class_names.sort()
+            # for split in splits:
+            domain_split_dir = osp.join(domain_dir, split)
+            class_names = listdir_nohidden(domain_split_dir)
+            class_names.sort()
 
-                for label, class_name in enumerate(class_names):
-                    class_path = osp.join(domain_split_dir, class_name)
-                    imnames = listdir_nohidden(class_path)
+            for label, class_name in enumerate(class_names):
+                class_path = osp.join(domain_split_dir, class_name)
+                imnames = listdir_nohidden(class_path)
 
-                    for imname in imnames:
-                        impath = osp.join(class_path, imname)
-                        item = Datum(impath=impath, label=label, domain=domain)
-                        items.append(item)
+                for imname in imnames:
+                    impath = osp.join(class_path, imname)
+                    item = Datum(impath=impath, label=label, domain=domain)
+                    items.append(item)
 
         return items
